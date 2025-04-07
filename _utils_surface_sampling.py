@@ -187,7 +187,7 @@ def cylindrical_projection_pca(mesh):
     return theta, h
 
 def unfold_surface(mesh): 
-    # Step 4: Compute the principal axis using PCA (for cylindrical projection)
+    # Compute the principal axis using PCA (for cylindrical projection)
     pca = PCA(n_components=1)
     axis = pca.fit(mesh.vertices).components_[0]
     proj = mesh.vertices @ axis  # Projection of points onto the axis (height)
@@ -204,12 +204,12 @@ def unfold_surface(mesh):
     return phi_normalized, height_normalized
 
 def unfold_to_int_map(mesh, combined_intensity): 
-    # Step 3: Convert Cartesian coordinates to cylindrical coordinates
+    # Convert Cartesian coordinates to cylindrical coordinates
     x, y, z = mesh.vertices.T
     r = np.sqrt(x**2 + y**2)
     theta = np.arctan2(y, x)
 
-    # Step 4: Bin the intensity data by spatial regions
+    # Bin the intensity data by spatial regions
     bins_theta = np.linspace(-np.pi, np.pi, num=100)  # 10-degree bins
     bins_z = np.linspace(np.min(z), np.max(z), num=36)  # Height bins
 
