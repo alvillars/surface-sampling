@@ -1,0 +1,18 @@
+name: morphometrics
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - hdbscan
+  - leidenalg
+  - napari
+  - numba
+  - numpy
+  - pip[version='>=22.0']
+  - pyopencl
+  - pyqt[version='>=5.12.3,!=5.15.0']
+  - pytables
+  - python-igraph
+  - python=3.9
+  - ocl_icd_wrapper_apple
+prefix: /Users/avillars/opt/anaconda3/envs/morphometrics
