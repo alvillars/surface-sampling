@@ -16,5 +16,5 @@ dependencies:
   - python=3.9
   - pip:
     - morphometrics 
-    - pip install napari-accelerated-pixel-and-object-classification
+    - napari-accelerated-pixel-and-object-classification
 prefix: /Users/avillars/opt/anaconda3/envs/morphometrics
