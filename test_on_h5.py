@@ -8,11 +8,15 @@ import matplotlib.pyplot as plt
 import tifffile
 from _utils_surface_sampling import binarize_image
 from _utils_surface_sampling import cylindrical_projection, mesh_parameterization_heatmap, sample_fluorescence, cylindrical_projection_pca, unfold_to_int_map, unfold_surface
+from PyQt5.QtWidgets import QApplication, QFileDialog
 
 if __name__ == '__main__':
 
-    fname = '/Users/avillars/Desktop/Surface_sampling_project/test_data/converted_img/probabilities.tif'
-    original_fname = '/Users/avillars/Desktop/Surface_sampling_project/test_data/converted_img/test_h5.h5'
+    app = QApplication([])
+    fname = QFileDialog.getOpenFileName(caption='Select a the .csv file to use as input',filter='*.tif')[0]
+    original_fname = QFileDialog.getOpenFileName(caption='Select a the .csv file to use as input',filter='*.tif')[0]
+    # fname = '/Users/avillars/Desktop/Surface_sampling_project/test_data/converted_img/probabilities.tif'
+    # original_fname = '/Users/avillars/Desktop/Surface_sampling_project/test_data/converted_img/test_h5.h5'
 
     # fname_list = glob('S:/lightsheet/iber/Alexis/Nick_conversions/*_seg*.h5')
 

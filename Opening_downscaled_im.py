@@ -1,11 +1,17 @@
 import napari
 import h5py
+from PyQt5.QtWidgets import QApplication, QFileDialog
 
-fname = '/Users/avillars/Desktop/Surface_sampling_project/test_data/converted_img/test_h5.h5'
-with h5py.File(fname, 'r') as f: 
-    im = f['downscaled'][...]
 
-viewer = napari.Viewer()
-viewer.add_image(im, visible=False)
+if __name__ == '__main__':
+    app = QApplication([])
+    input_directory = QFileDialog.getOpenFileName(caption='Select a the .csv file to use as input',filter='*.h5')[0]
 
-napari.run()
+    fname = input_directory
+    with h5py.File(fname, 'r') as f: 
+        im = f['downscaled'][...]
+
+    viewer = napari.Viewer()
+    viewer.add_image(im, visible=False)
+
+    napari.run()

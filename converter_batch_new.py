@@ -101,7 +101,7 @@ def convert_image(fname, output_directory):
     im_downscaled = downscale(im_rescaled_normalised)
 
     output_fname = os.path.basename(fname)
-    output_fpath = os.path.join(output_directory, output_fname)
+    output_fpath = os.path.join(output_directory, output_fname.replace('.ims','.h5'))
 
     with h5py.File(output_fpath, 'w') as f_out:
         dset_normed = f_out.create_dataset(
