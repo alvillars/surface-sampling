@@ -14,7 +14,7 @@ if __name__ == '__main__':
 
     app = QApplication([])
     fname = QFileDialog.getOpenFileName(caption='Select a the .csv file to use as input',filter='*.tif')[0]
-    original_fname = QFileDialog.getOpenFileName(caption='Select a the .csv file to use as input',filter='*.tif')[0]
+    original_fname = QFileDialog.getOpenFileName(caption='Select a the .csv file to use as input',filter='*.h5')[0]
     # fname = '/Users/avillars/Desktop/Surface_sampling_project/test_data/converted_img/probabilities.tif'
     # original_fname = '/Users/avillars/Desktop/Surface_sampling_project/test_data/converted_img/test_h5.h5'
 
