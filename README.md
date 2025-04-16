@@ -22,6 +22,11 @@ conda env create -f environment.yml
 conda activate your-env-name
 ```
 
+to update you can do: 
+```bash
+git fetch origin
+git reset --hard origin/main
+```
 
 ### 3. 🔧 Setup
 
