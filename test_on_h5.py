@@ -11,7 +11,7 @@ from _utils_surface_sampling import cylindrical_projection, mesh_parameterizatio
 from PyQt5.QtWidgets import QApplication, QFileDialog
 
 if __name__ == '__main__':
-
+    channel = 2 # 0: DAPI, 1: SOX2, 2:Ptch1, 3:PAX6
     app = QApplication([])
     fname = QFileDialog.getOpenFileName(caption='Select a the .csv file to use as input',filter='*.tif')[0]
     original_fname = QFileDialog.getOpenFileName(caption='Select a the .csv file to use as input',filter='*.h5')[0]
@@ -33,10 +33,11 @@ if __name__ == '__main__':
     # label_image_rescaled = rescale(label_image, (1, scale_factor_z, scale_factor_y, scale_factor_x), anti_aliasing=False)
 
     # binarise the image 
-    label_image = binarize_image(im = label_image, threshold = 0.1, closing_size=10)
+    closing_size =10
+    label_image = binarize_image(im = label_image, threshold = 0.1, closing_size=closing_size)
 
     # the binarisation closes holes through dilation: erode the image to correct the dilation on the sides. 
-    label_image = binary_erosion(label_image, footprint=cube(5))
+    label_image = binary_erosion(label_image, footprint=cube(closing_size))
 
     # # load the original images to measure the pixel intensities 
     with h5py.File(original_fname,'r') as f:
@@ -46,7 +47,7 @@ if __name__ == '__main__':
 
     mesh = binary_mask_to_surface(
         label_image,
-        n_mesh_smoothing_iterations=10
+        n_mesh_smoothing_interations=10
     )
 
     boundary_dilation_size = 1
@@ -64,7 +65,7 @@ if __name__ == '__main__':
 
     # Sample fluorescence intensity at these points
 
-    fluorescence_values = original_im[3][z, y, x]
+    fluorescence_values = original_im[channel][z, y, x]
     # Normalize the fluorescence values
     f_min, f_max = fluorescence_values.min(), fluorescence_values.max()
 
@@ -78,7 +79,8 @@ if __name__ == '__main__':
     plt.show()
 
     vertices_2D, tri = mesh_parameterization_heatmap(mesh)
-    fluorescence_values = sample_fluorescence(mesh, original_im[3,...])
+    fluorescence_values = sample_fluorescence(mesh, original_im[channel,...])
+    f_min, f_max = fluorescence_values.min(), fluorescence_values.max()
 
     # Step 3: Plot the heatmap
     plt.figure(figsize=(8, 6))
@@ -111,7 +113,7 @@ if __name__ == '__main__':
     plt.title("PCA-Based Cylindrical Projection with Fluorescence Heatmap")
     plt.show()
 
-    intensity_map = unfold_to_int_map(mesh, original_im[3,...])
+    intensity_map = unfold_to_int_map(mesh, original_im[channel,...])
         
     plt.figure(figsize=(8, 6))
     plt.imshow(intensity_map, cmap="inferno")
